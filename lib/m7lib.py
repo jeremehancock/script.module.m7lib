@@ -73,7 +73,7 @@ class Common:
         try:
             matches = re.findall(pattern, text, flags=re.DOTALL)
             result = matches[number]
-        except:
+        except None:
             result = ""
         return result
 
@@ -603,7 +603,6 @@ class Common:
                 Common.play(stream)
             else:
                 Common.dlg_failed(mode)
-
 
         elif mode == "NASA TV":
             stream = Stream.nasa_tv()
