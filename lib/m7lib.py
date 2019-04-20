@@ -63,7 +63,8 @@ class Common:
 
     @staticmethod
     def random_generator(size=6, chars=string.ascii_uppercase + string.digits):
-        return ''.join(random.choice(chars) for x in range(size))
+        # Added '# nosec' to suppress bandit warning since this is not used for security/cryptographic purposes.
+        return ''.join(random.choice(chars) for x in range(size))  # nosec
 
     @staticmethod
     # Parse string and extracts first match as a string
