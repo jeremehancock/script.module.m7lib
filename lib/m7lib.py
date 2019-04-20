@@ -86,7 +86,10 @@ class Common:
     @staticmethod
     # Open URL
     def open_url(url, user_agent=True):
-        req = Request(url)
+        if url.lower().startswith('http'):
+            req = Request(url)
+        else:
+            raise ValueError
         if user_agent is not False:
             req.add_header('User-Agent',
                            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11'
@@ -98,16 +101,16 @@ class Common:
 
     @staticmethod
     # Section, Genre, or Channel logos
-    def get_logo(channel, type=None):
-        if type is None:
+    def get_logo(channel, logo_type=None):
+        if logo_type is None:
             return xbmc.translatePath(
                 os.path.join('special://home/addons/script.module.m7lib', 'lib', 'resources', 'images',
                              channel + ".png"))
-        elif type == "section":
+        elif logo_type == "section":
             return xbmc.translatePath(
                 os.path.join('special://home/addons/script.module.m7lib', 'lib', 'resources', 'images', 'sections',
                              channel + ".png"))
-        elif type == "genre":
+        elif logo_type == "genre":
             return xbmc.translatePath(
                 os.path.join('special://home/addons/script.module.m7lib', 'lib', 'resources', 'images', 'genres',
                              channel + ".png"))
