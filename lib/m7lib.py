@@ -295,271 +295,120 @@ class Common:
     @staticmethod
     # Get and Play stream
     def get_stream_and_play(mode):
+        stream = None
         if mode == "24-7 Retro":
             stream = Stream.twenty_four_seven_retro()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Action Movies":
             stream = Stream.action_movies()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Adventure TV":
             stream = Stream.adventure_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Aljazeera":
             stream = Stream.aljazeera()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Big Life TV":
             stream = Stream.big_life_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Black Cinema":
             stream = Stream.black_cinema()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Bloomberg":
             stream = Stream.bloomberg()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Buzzr":
             stream = Stream.buzzr()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Catholic TV Network":
             stream = Stream.catholic_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Celebrity Page Network":
             stream = Stream.celebrity_page_network()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Charge!":
             stream = Stream.charge()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Cheddar":
             stream = Stream.cheddar()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Classic Movies Channel":
             stream = Stream.classic_movies_channel()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Classic Toons TV":
             stream = Stream.classic_toons_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Classic TV":
             stream = Stream.classic_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Cold Case Files":
             stream = Stream.cold_case_files()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Comet":
             stream = Stream.comet()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "CONtv":
             stream = Stream.contv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Crime Network":
             stream = Stream.crime_network()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "DocuTV":
             stream = Stream.docutv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Dog the Bounty Hunter":
             stream = Stream.dog_the_bounty_hunter()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Dove":
             stream = Stream.dove()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Dust":
             stream = Stream.dust()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Evine":
             stream = Stream.evine()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Fail Army":
             stream = Stream.fail_army()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Fight":
             stream = Stream.fight()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Flashback TV":
             stream = Stream.flashback_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Flicks of Fury":
             stream = Stream.flicks_of_fury()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Food TV":
             stream = Stream.food_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Forensic Files":
             stream = Stream.forensic_files()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "FOX Sports":
             stream = Stream.fox_sports()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "FrontDoor":
             stream = Stream.frontdoor()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Futurism":
             stream = Stream.futurism()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "GLORY Kickboxing":
             stream = Stream.glory_kickboxing()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Gravitas Movies":
             stream = Stream.gravitas_movies()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Gusto":
             stream = Stream.gusto()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "HSN":
             stream = Stream.hsn()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Hunt Channel":
             stream = Stream.hunt_channel()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "IMPACT Wrestling":
             stream = Stream.impact_wrestling()
@@ -570,374 +419,167 @@ class Common:
 
         elif mode == "Jewelry TV":
             stream = Stream.jewelry_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Light TV":
             stream = Stream.light_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Live Music Replay":
             stream = Stream.live_music_replay()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Mobcrush":
             stream = Stream.mobcrush()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Movie Mix":
             stream = Stream.movie_mix()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "MST3K":
             stream = Stream.mst3k()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "NASA TV":
             stream = Stream.nasa_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "NBC News":
             stream = Stream.nbc_news()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Newsmax":
             stream = Stream.newsmax_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Outdoor America":
             stream = Stream.outdoor_america()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "PBS Kids":
             stream = Stream.pbs_kids()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Animals":
             stream = Stream.pluto_tv_animals()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Biography":
             stream = Stream.pluto_tv_biography()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Cine":
             stream = Stream.pluto_tv_cine()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Comedy":
             stream = Stream.pluto_tv_comedy()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Conspiracy":
             stream = Stream.pluto_tv_conspiracy()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Documentaries":
             stream = Stream.pluto_tv_documentaries()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Drama":
             stream = Stream.pluto_tv_drama()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Family":
             stream = Stream.pluto_tv_family()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV History":
             stream = Stream.pluto_tv_history()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Indies":
             stream = Stream.pluto_tv_indies()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Movies":
             stream = Stream.pluto_tv_movies()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Movies 2":
             stream = Stream.pluto_tv_movies_2()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Romance":
             stream = Stream.pluto_tv_romance()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Sitcoms":
             stream = Stream.pluto_tv_sitcoms()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Thrillers":
             stream = Stream.pluto_tv_thrillers()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Travel":
             stream = Stream.pluto_tv_travel()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Pluto TV Westerns":
             stream = Stream.pluto_tv_westerns()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "QVC":
             stream = Stream.qvc()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "RadioU":
             stream = Stream.campfire(mode)
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Rev'n TV":
             stream = Stream.revn_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "RiffTrax":
             stream = Stream.rifftrax()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "RT News":
             stream = Stream.rt()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Runway TV":
             stream = Stream.runway_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Science TV":
             stream = Stream.science_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Sky News":
             stream = Stream.sky_news()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Soar":
             stream = Stream.soar()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Spirit TV":
             stream = Stream.campfire(mode)
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Stadium":
             stream = Stream.stadium()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Stand-Up TV":
             stream = Stream.standup_tv()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Stirr Life":
             stream = Stream.stirr_life()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Stirr Movies":
             stream = Stream.stirr_movies()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Stirr Sports":
             stream = Stream.stirr_sports()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "TBD":
             stream = Stream.tbd()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Tennis Channel":
             stream = Stream.tennis_channel()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "The Asylum":
             stream = Stream.the_asylum()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "The Country Network":
             stream = Stream.the_country_network()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "The New Detectives":
             stream = Stream.the_new_detectives()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Unsolved Mysteries":
             stream = Stream.unsolved_mysteries()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "The Pet Collective":
             stream = Stream.the_pet_collective()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Voyager Documentaries":
             stream = Stream.voyager_documentaries()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "Wahlburgers":
             stream = Stream.wahlburgers()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
 
         elif mode == "World Poker Tour":
             stream = Stream.world_poker_tour()
-            if stream is not None:
-                Common.play(stream)
-            else:
-                Common.dlg_failed(mode)
+
+        if stream is not None:
+            Common.play(stream)
+        else:
+            Common.dlg_failed(mode)
 
 
 class Stream:
