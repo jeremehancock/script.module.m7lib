@@ -73,7 +73,7 @@ class Common:
         try:
             matches = re.findall(pattern, text, flags=re.DOTALL)
             result = matches[number]
-        except None:
+        except AttributeError:
             result = ""
         return result
 
