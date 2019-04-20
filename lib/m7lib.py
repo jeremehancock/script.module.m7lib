@@ -87,14 +87,16 @@ class Common:
     # Open URL
     def open_url(url, user_agent=True):
         if url.lower().startswith('http'):
-            req = Request(url)
+            # Added '# nosec' to suppress bandit warnings since the code is not accepting non-http schemes
+            req = Request(url)  # nosec
         else:
             raise ValueError
         if user_agent is not False:
             req.add_header('User-Agent',
                            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11'
                            '(KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11')
-        response = urlopen(req)
+        # Added '# nosec' to suppress bandit warnings since the code is not accepting non-http schemes
+        response = urlopen(req)  # nosec
         link = response.read()
         response.close()
         return link
