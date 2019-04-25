@@ -147,12 +147,12 @@ class Common:
                             {"name": "Dust", "type": "Sci-Fi"},
                             {"name": "Evine", "type": "Shopping"},
                             {"name": "Fail Army", "type": "Special Interest"},
-                            {"name": "Flashback TV", "type": "Retro"},
                             {"name": "Fight", "type": "Sports"},
                             {"name": "Flicks of Fury", "type": "Movies, Action"},
                             {"name": "Food TV", "type": "Lifestyle"},
                             {"name": "Forensic Files", "type": "Crime, 24-7"},
                             {"name": "FOX Sports", "type": "Sports"},
+                            {"name": "France 24", "type": "News"},
                             {"name": "FrontDoor", "type": "Lifestyle"},
                             {"name": "Futurism", "type": "Curiosity, Special Interest"},
                             {"name": "GLORY Kickboxing", "type": "Sports"},
@@ -374,9 +374,6 @@ class Common:
         elif mode == "Fight":
             stream = Stream.fight()
 
-        elif mode == "Flashback TV":
-            stream = Stream.flashback_tv()
-
         elif mode == "Flicks of Fury":
             stream = Stream.flicks_of_fury()
 
@@ -388,6 +385,9 @@ class Common:
 
         elif mode == "FOX Sports":
             stream = Stream.fox_sports()
+
+        elif mode == "France 24":
+            stream = Stream.france_24()
 
         elif mode == "FrontDoor":
             stream = Stream.frontdoor()
@@ -775,29 +775,6 @@ class Stream:
         return Stream.pluto("Fight")
 
     @staticmethod
-    def flashback_tv():
-        try:
-            site_url = "https://flash1tv.com/"
-            json_path_match_string = "//iframe.dacast.com(.+?)&quot;"
-
-            # Get stream json path
-            req = Common.open_url(site_url).decode("UTF-8")
-            json_path = Common.find_single_match(req, json_path_match_string)
-
-            # Get stream
-            json_url = "https://json.dacast.com" + json_path
-            req = Common.open_url(json_url).decode("UTF-8")
-            stream_json = json.loads(req)
-            stream = stream_json["hls"]
-
-            if "m3u8" in stream:
-                return Common.rebase(stream)
-            else:
-                return None
-        except StandardError:
-            return None
-
-    @staticmethod
     def flicks_of_fury():
         return Stream.pluto("Flicks of Fury")
 
@@ -812,6 +789,48 @@ class Stream:
     @staticmethod
     def fox_sports():
         return Stream.pluto("FOX Sports")
+
+    @staticmethod
+    def france_24():
+        try:
+            fr24_fr_url = "http://www.france24.com/fr/tv-en-direct-chaine-live"
+            fr24_en_url = "http://www.france24.com/en/livefeed"
+            fr24_esp_url = "http://www.france24.com/es/tv-en-vivo-live"
+            fr24_ar_url = "http://www.france24.com/ar/livefeed"
+            channel_id_match_string = 'src="https://www.youtube.com(.+?)&'
+            video_match_string = '\'VIDEO_ID\': "(.+?)"'
+
+            # Channel Selection
+            source = dlg.select("Choose Channel", [
+                "[COLOR lightskyblue]French[/COLOR]",
+                "[COLOR lightskyblue]English[/COLOR]",
+                "[COLOR lightskyblue]Spanish[/COLOR]",
+                "[COLOR lightskyblue]Arabic[/COLOR]"])
+            if source == 0:
+                channel_url = fr24_fr_url
+            if source == 1:
+                channel_url = fr24_en_url
+            if source == 2:
+                channel_url = fr24_esp_url
+            if source == 3:
+                channel_url = fr24_ar_url
+            if source < 0:
+                exit()
+
+            # Get France 24 YouTube Channel
+            req = Common.open_url(channel_url).decode("UTF-8")
+            channel = "https://www.youtube.com" + Common.find_single_match(req, channel_id_match_string)
+
+            # Get Stream
+            req = Common.open_url(channel).decode("UTF-8")
+            channel_id = Common.find_single_match(req, video_match_string)
+
+            if channel_id is not "":
+                return Common.get_playable_youtube_url(channel_id)
+            else:
+                return None
+        except StandardError:
+            return None
 
     @staticmethod
     def frontdoor():
