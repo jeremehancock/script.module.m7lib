@@ -47,7 +47,7 @@ convert_special_characters = HTMLParser()
 dlg = xbmcgui.Dialog()
 
 stream_failed = "Unable to get stream. Please try again later."
-stream_plug = "aHR0cHM6Ly90dnRpbWUuZGV2L2xpdmV0dl9kaXJlY3QvdjEvZ2V0X3N0cmVhbS5waHA/aWQ9"
+stream_plug = "aHR0cHM6Ly9tN2xpYi5kZXYvYXBpL2xpdmVfc3RyZWFtcy92MS9nZXRfc3RyZWFtLnBocD9pZD0="
 stirr_base = "aHR0cHM6Ly9vdHQtZ2F0ZXdheS1zdGlyci5zaW5jbGFpcnN0b3J5bGluZS5jb20vYXBpL3Jlc3QvdjMvc3RhdHVzLw=="
 pluto_base = "aHR0cDovL2FwaS5wbHV0by50di92Mi9jaGFubmVscz9hcHBOYW1lPXdlYiZkZXZpY2VNYWtlPUNocm9tZSZkZXZpY2VUeXBlPXdlYiY="
 explore_org_base = "aHR0cHM6Ly9vbWVnYS5leHBsb3JlLm9yZy9hcGkvZ2V0X2NhbV9ncm91cF9pbmZvLmpzb24/aWQ9Nzk="
