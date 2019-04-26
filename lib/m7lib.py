@@ -1578,6 +1578,23 @@ class Stream:
         return episode_list
 
     @staticmethod
+    def get_tubi_tv_search(text):
+        search_list = []
+        url = base64.b64decode(tubi_tv_base) + '/search/' + text
+        req = Common.open_url(url).decode('UTF-8')
+        json_results = json.loads(req)
+
+        for result in json_results:
+            try:
+                search_list.append({"id": result['id'],
+                                     "icon": result['posterarts'][0],
+                                     "title": result['title'].decode('UTF-8'),
+                                     "type": result['type']})
+            except StandardError:
+                pass
+        return search_list
+
+    @staticmethod
     def get_tubi_tv_stream(stream_id):
         req = Common.open_url(base64.b64decode(tubi_tv_base) + '/videos/' + stream_id + '/content')
         return json.loads(req)['url']
