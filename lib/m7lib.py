@@ -137,6 +137,7 @@ class Common:
                             {"name": "Classic Movies Channel", "type": "Movies, Retro"},
                             {"name": "Classic Toons TV", "type": "Retro, Kids"},
                             {"name": "Classic TV", "type": "Retro"},
+                            {"name": "CMT Westerns", "type": "Movies, Western"},
                             {"name": "Cold Case Files", "type": "Crime, 24-7"},
                             {"name": "Comet", "type": "Sci-Fi"},
                             {"name": "CONtv", "type": "Special Interest"},
@@ -188,17 +189,13 @@ class Common:
                             {"name": "Pluto TV Sitcoms", "type": "Comedy"},
                             {"name": "Pluto TV Travel", "type": "Lifestyle"},
                             {"name": "Pluto TV Thrillers", "type": "Movies, Thriller"},
-                            {"name": "Pluto TV Westerns", "type": "Movies, Western"},
                             {"name": "QVC", "type": "Shopping"},
-                            {"name": "RadioU", "type": "Music"},
                             {"name": "Rev'n TV", "type": "Special Interest"},
                             {"name": "RiffTrax", "type": "Comedy, 24-7"},
                             {"name": "RT News", "type": "News"},
-                            {"name": "Runway TV", "type": "Lifestyle"},
                             {"name": "Science TV", "type": "Curiosity"},
                             {"name": "Sky News", "type": "News"},
                             {"name": "Soar", "type": "Special Interest"},
-                            {"name": "Spirit TV", "type": "Faith"},
                             {"name": "Stadium", "type": "Sports"},
                             {"name": "Stand-Up TV", "type": "Comedy"},
                             {"name": "Stirr Life", "type": "Lifestyle"},
@@ -498,14 +495,11 @@ class Common:
         elif mode == "Pluto TV Travel":
             stream = Stream.pluto_tv_travel()
 
-        elif mode == "Pluto TV Westerns":
+        elif mode == "CMT Westerns":
             stream = Stream.pluto_tv_westerns()
 
         elif mode == "QVC":
             stream = Stream.qvc()
-
-        elif mode == "RadioU":
-            stream = Stream.campfire(mode)
 
         elif mode == "Rev'n TV":
             stream = Stream.revn_tv()
@@ -516,9 +510,6 @@ class Common:
         elif mode == "RT News":
             stream = Stream.rt()
 
-        elif mode == "Runway TV":
-            stream = Stream.runway_tv()
-
         elif mode == "Science TV":
             stream = Stream.science_tv()
 
@@ -527,9 +518,6 @@ class Common:
 
         elif mode == "Soar":
             stream = Stream.soar()
-
-        elif mode == "Spirit TV":
-            stream = Stream.campfire(mode)
 
         elif mode == "Stadium":
             stream = Stream.stadium()
@@ -1140,7 +1128,7 @@ class Stream:
 
     @staticmethod
     def pluto_tv_westerns():
-        return Stream.pluto("Pluto TV Westerns")
+        return Stream.pluto("CMT Westerns")
 
     @staticmethod
     def qvc():
@@ -1157,12 +1145,14 @@ class Stream:
 
             qvc_url = qvc_json["QVC"]["url"]
             qvc2_url = qvc_json["2CH"]["url"]
+            qvc3_url = qvc_json["ONQ"]["url"]
             iq_url = qvc_json["STA"]["url"]
 
             # Channel Selection
             source = xbmcgui.Dialog().select("Choose Channel", [
                 "[COLOR lightskyblue]QVC[/COLOR]",
                 "[COLOR lightskyblue]QVC2[/COLOR]",
+                "[COLOR lightskyblue]QVC3[/COLOR]",
                 "[COLOR lightskyblue]Beauty IQ[/COLOR]"
             ])
             if source == 0:
@@ -1170,22 +1160,20 @@ class Stream:
             elif source == 1:
                 channel_url = qvc2_url
             elif source == 2:
+                channel_url = qvc3_url
+            elif source == 3:
                 channel_url = iq_url
             else:
                 exit()
 
             # Play QVC stream depending on Channel Selection
-            stream = "http:" + channel_url
+            stream = channel_url
             if "m3u8" in channel_url:
                 return Common.rebase(stream)
             else:
                 return None
         except StandardError:
             return None
-
-    @staticmethod
-    def radiou():
-        return Stream.campfire("RadioU")
 
     @staticmethod
     def revn_tv():
@@ -1300,28 +1288,6 @@ class Stream:
         return Stream.stirr("soar-internal")
 
     @staticmethod
-    def runway_tv():
-        try:
-            site_url = "http://www.runwaytv.com/"
-            embed_match_string = '<iframe src="(.+?)"'
-            stream_match_string = "source: '(.+?)'"
-
-            # Get embed url
-            req = Common.open_url(site_url).decode("UTF-8")
-            embed_url = Common.find_single_match(req, embed_match_string)
-
-            # Get stream url
-            req = Common.open_url(embed_url).decode("UTF-8")
-            stream = Common.find_single_match(req, stream_match_string)
-
-            if "m3u8" in stream:
-                return Common.rebase(stream)
-            else:
-                return None
-        except StandardError:
-            return None
-
-    @staticmethod
     def science_tv():
         return Stream.pluto("Science TV")
 
@@ -1339,10 +1305,6 @@ class Stream:
                 return None
         except StandardError:
             return None
-
-    @staticmethod
-    def spirittv():
-        return Stream.campfire("Spirit TV")
 
     @staticmethod
     def stadium():
@@ -1443,27 +1405,6 @@ class Stream:
     @staticmethod
     def world_poker_tour():
         return Stream.stirr("world-poker-tour-wurl-external")
-
-    @staticmethod
-    def campfire(channel):
-        channel_id = ""
-        try:
-            if channel == 'RadioU':
-                channel_id = 'XDc'
-            elif channel == 'Spirit TV':
-                channel_id = 'bqg'
-
-            site_url = "http://player.campfyre.tv/{id}".format(id=channel_id)
-            match_string = 'file: "(.+?)"'
-
-            req = Common.open_url(site_url).decode("UTF-8")
-            stream = "http:" + Common.find_single_match(req, match_string)
-            if "m3u8" in stream:
-                return Common.rebase(stream)
-            else:
-                return None
-        except StandardError:
-            return None
 
     @staticmethod
     def stirr(url_slug):
