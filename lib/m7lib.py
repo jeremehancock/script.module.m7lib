@@ -141,6 +141,7 @@ class Common:
                             {"name": "Cold Case Files", "type": "Crime, 24-7"},
                             {"name": "Comet", "type": "Sci-Fi"},
                             {"name": "CONtv", "type": "Special Interest"},
+                            {"name": "Court TV", "type": "Crime"},
                             {"name": "Crime Network", "type": "Crime"},
                             {"name": "DocuTV", "type": "Curiosity, Documentary"},
                             {"name": "Dog the Bounty Hunter", "type": "Crime, 24-7"},
@@ -196,6 +197,7 @@ class Common:
                             {"name": "Science TV", "type": "Curiosity"},
                             {"name": "Sky News", "type": "News"},
                             {"name": "Soar", "type": "Special Interest"},
+                            {"name": "Spirit TV", "type": "Faith"},
                             {"name": "Stadium", "type": "Sports"},
                             {"name": "Stand-Up TV", "type": "Comedy"},
                             {"name": "Stirr Life", "type": "Lifestyle"},
@@ -346,6 +348,9 @@ class Common:
 
         elif mode == "CONtv":
             stream = Stream.contv()
+
+        elif mode == "Court TV":
+            stream = Stream.courttv()
 
         elif mode == "Crime Network":
             stream = Stream.crime_network()
@@ -518,6 +523,9 @@ class Common:
 
         elif mode == "Soar":
             stream = Stream.soar()
+
+        elif mode == "Spirit TV":
+            stream = Stream.spirittv()
 
         elif mode == "Stadium":
             stream = Stream.stadium()
@@ -716,6 +724,23 @@ class Stream:
     @staticmethod
     def contv():
         return Stream.stirr("contv-wurl-external")
+
+    @staticmethod
+    def courttv():
+        try:
+            site_url = "https://www.courttv.com/title/court-tv-live-stream-web/"
+            match_string = "m3u8=(.+?)%3Fad"
+
+            # Get stream url
+            req = Common.open_url(site_url).decode("UTF-8")
+            stream = Common.find_single_match(req, match_string).replace("%3A", ":").replace("%2F","/")
+
+            if "m3u8" in stream:
+                return Common.rebase(stream)
+            else:
+                return None
+        except StandardError:
+            return None
 
     @staticmethod
     def crime_network():
@@ -1286,6 +1311,21 @@ class Stream:
     @staticmethod
     def soar():
         return Stream.stirr("soar-internal")
+
+    @staticmethod
+    def spirittv():
+        try:
+            site_url = "https://myspirit.tv/"
+            match_string = 'mediaUrl=(.+?)\&'
+
+            req = Common.open_url(site_url).decode("UTF-8")
+            stream = Common.find_single_match(req, match_string).replace("%3A", ":").replace("%2F","/")
+            if "m3u8" in stream:
+                return Common.rebase(stream)
+            else:
+                return None
+        except StandardError:
+            return None
 
     @staticmethod
     def science_tv():
