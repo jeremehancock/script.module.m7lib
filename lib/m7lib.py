@@ -126,12 +126,13 @@ class Common:
                             {"name": "Action Movies", "type": "Movies, Action"},
                             {"name": "Adventure TV", "type": "Lifestyle"},
                             {"name": "Aljazeera", "type": "News"},
+                            {"name": "Antenna TV", "type": "Retro"},
                             {"name": "Big Life TV", "type": "Lifestyle"},
                             {"name": "Black Cinema", "type": "Movies"},
                             {"name": "Bloomberg", "type": "News"},
                             {"name": "Buzzr", "type": "Retro"},
                             {"name": "Catholic TV Network", "type": "Faith"},
-                            {"name": "Celebrity Page Network", "type": "Celebrity"},
+                            {"name": "CBN", "type": "Faith"},
                             {"name": "Charge!", "type": "Action"},
                             {"name": "Cheddar", "type": "News"},
                             {"name": "Classic Movies Channel", "type": "Movies, Retro"},
@@ -142,6 +143,7 @@ class Common:
                             {"name": "Comet", "type": "Sci-Fi"},
                             {"name": "CONtv", "type": "Special Interest"},
                             {"name": "Court TV", "type": "Crime"},
+                            {"name": "Cozi TV", "type": "Retro"},
                             {"name": "Crime Network", "type": "Crime"},
                             {"name": "DocuTV", "type": "Curiosity, Documentary"},
                             {"name": "Dog the Bounty Hunter", "type": "Crime, 24-7"},
@@ -172,6 +174,7 @@ class Common:
                             {"name": "NASA TV", "type": "Curiosity"},
                             {"name": "NBC News", "type": "News"},
                             {"name": "Newsmax", "type": "News"},
+                            {"name": "News Net", "type": "News"},
                             {"name": "Outdoor America", "type": "Lifestyle"},
                             {"name": "PBS Kids", "type": "Kids"},
                             {"name": "Pluto TV Animals", "type": "Curiosity"},
@@ -191,6 +194,7 @@ class Common:
                             {"name": "Pluto TV Travel", "type": "Lifestyle"},
                             {"name": "Pluto TV Thrillers", "type": "Movies, Thriller"},
                             {"name": "QVC", "type": "Shopping"},
+                            {"name": "Retro TV", "type": "Retro"},
                             {"name": "Rev'n TV", "type": "Special Interest"},
                             {"name": "RiffTrax", "type": "Comedy, 24-7"},
                             {"name": "RT News", "type": "News"},
@@ -205,6 +209,7 @@ class Common:
                             {"name": "Stirr Sports", "type": "Sports"},
                             {"name": "TBD", "type": "Special Interest"},
                             {"name": "Tennis Channel", "type": "Sports"},
+                            {"name": "This TV", "type": "Retro"},
                             {"name": "The Asylum", "type": "Movies, Sci-Fi"},
                             {"name": "The Country Network", "type": "Music"},
                             {"name": "The New Detectives", "type": "Crime, 24-7"},
@@ -226,7 +231,7 @@ class Common:
     @staticmethod
     # Available genres
     def get_genres():
-        genre_list = ["24-7", "Action", "Biography", "Celebrity", "Comedy", "Crime", "Curiosity", "Documentary",
+        genre_list = ["24-7", "Action", "Biography", "Comedy", "Crime", "Curiosity", "Documentary",
                       "Faith", "Family", "Kids", "Lifestyle", "News", "Movies", "Music", "Retro", "Romance", "Sci-Fi",
                       "Shopping", "Special Interest", "Sports", "Thriller", "Western"]
         return genre_list
@@ -307,6 +312,9 @@ class Common:
         elif mode == "Aljazeera":
             stream = Stream.aljazeera()
 
+        elif mode == "Antenna TV":
+            stream = Stream.antenna_tv()
+
         elif mode == "Big Life TV":
             stream = Stream.big_life_tv()
 
@@ -322,8 +330,8 @@ class Common:
         elif mode == "Catholic TV Network":
             stream = Stream.catholic_tv()
 
-        elif mode == "Celebrity Page Network":
-            stream = Stream.celebrity_page_network()
+        elif mode == "CBN":
+            stream = Stream.cbn()
 
         elif mode == "Charge!":
             stream = Stream.charge()
@@ -351,6 +359,9 @@ class Common:
 
         elif mode == "Court TV":
             stream = Stream.courttv()
+
+        elif mode == "Cozi TV":
+            stream = Stream.cozi_tv()
 
         elif mode == "Crime Network":
             stream = Stream.crime_network()
@@ -446,6 +457,9 @@ class Common:
         elif mode == "Newsmax":
             stream = Stream.newsmax_tv()
 
+        elif mode == "News Net":
+            stream = Stream.news_net()
+
         elif mode == "Outdoor America":
             stream = Stream.outdoor_america()
 
@@ -506,6 +520,9 @@ class Common:
         elif mode == "QVC":
             stream = Stream.qvc()
 
+        elif mode == "Retro TV":
+            stream = Stream.retro_tv()
+
         elif mode == "Rev'n TV":
             stream = Stream.revn_tv()
 
@@ -547,6 +564,9 @@ class Common:
 
         elif mode == "Tennis Channel":
             stream = Stream.tennis_channel()
+
+        elif mode == "This TV":
+            stream = Stream.this_tv()
 
         elif mode == "The Asylum":
             stream = Stream.the_asylum()
@@ -624,6 +644,10 @@ class Stream:
             return None
 
     @staticmethod
+    def antenna_tv():
+        return Stream.m7lib("antenna_tv")
+
+    @staticmethod
     def big_life_tv():
         return Stream.stirr("externallinearfeed-03-06-2019-235515534-03-06-2019")
 
@@ -633,21 +657,7 @@ class Stream:
 
     @staticmethod
     def bloomberg():
-        try:
-            req = Common.open_url(
-                base64.b64decode(stream_plug).decode('UTF-8') + 'bloomberg')
-            bloomberg_json = json.loads(req)
-            stream = bloomberg_json["results"][0]["stream"]
-
-            if "m3u8" in stream:
-                return Common.rebase(stream)
-            elif "youtube" in stream:
-                channel_id = Common.get_youtube_channel_id(stream)
-                return Common.get_playable_youtube_url(channel_id)
-            else:
-                return None
-        except StandardError:
-            return None
+        return Stream.m7lib("bloomberg")
 
     @staticmethod
     def buzzr():
@@ -676,22 +686,8 @@ class Stream:
             return None
 
     @staticmethod
-    def celebrity_page_network():
-        try:
-            req = Common.open_url(
-                base64.b64decode(stream_plug).decode('UTF-8') + 'celebrity_page_network')
-            celebrity_page_json = json.loads(req)
-            stream = celebrity_page_json["results"][0]["stream"]
-
-            if "m3u8" in stream:
-                return Common.rebase(stream)
-            elif "youtube" in stream:
-                channel_id = Common.get_youtube_channel_id(stream)
-                return Common.get_playable_youtube_url(channel_id)
-            else:
-                return None
-        except StandardError:
-            return None
+    def cbn():
+        return Stream.m7lib("cbn")
 
     @staticmethod
     def charge():
@@ -730,6 +726,23 @@ class Stream:
         try:
             site_url = "https://www.courttv.com/title/court-tv-live-stream-web/"
             match_string = "m3u8=(.+?)%3Fad"
+
+            # Get stream url
+            req = Common.open_url(site_url).decode("UTF-8")
+            stream = Common.find_single_match(req, match_string).replace("%3A", ":").replace("%2F","/")
+
+            if "m3u8" in stream:
+                return Common.rebase(stream)
+            else:
+                return None
+        except StandardError:
+            return None
+
+    @staticmethod
+    def cozi_tv():
+        try:
+            site_url = "http://wzts.tv/watch/"
+            match_string = '"sourceURL":"(.+?)"'
 
             # Get stream url
             req = Common.open_url(site_url).decode("UTF-8")
@@ -1067,6 +1080,10 @@ class Stream:
             return None
 
     @staticmethod
+    def news_net():
+        return Stream.m7lib("news_net")
+
+    @staticmethod
     def outdoor_america():
         return Stream.stirr("outdoor-america-wurl-external")
 
@@ -1199,6 +1216,10 @@ class Stream:
                 return None
         except StandardError:
             return None
+
+    @staticmethod
+    def retro_tv():
+        return Stream.m7lib("retro_tv")
 
     @staticmethod
     def revn_tv():
@@ -1388,6 +1409,10 @@ class Stream:
         return Stream.stirr("free")
 
     @staticmethod
+    def this_tv():
+        return Stream.m7lib("this_tv")
+
+    @staticmethod
     def the_asylum():
         return Stream.pluto("The Asylum")
 
@@ -1479,6 +1504,24 @@ class Stream:
                     stream = i["stitched"]["urls"][0]["url"]
             if "m3u8" in stream:
                 return Common.rebase(stream)
+            else:
+                return None
+        except StandardError:
+            return None
+
+    @staticmethod
+    def m7lib(channel):
+        try:
+            req = Common.open_url(
+                base64.b64decode(stream_plug).decode('UTF-8') + channel)
+            channel_json = json.loads(req)
+            stream = channel_json["results"][0]["stream"]
+
+            if "m3u8" in stream:
+                return Common.rebase(stream)
+            elif "youtube" in stream:
+                channel_id = Common.get_youtube_channel_id(stream)
+                return Common.get_playable_youtube_url(channel_id)
             else:
                 return None
         except StandardError:
