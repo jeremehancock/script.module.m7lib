@@ -123,7 +123,6 @@ class Common:
     def get_channels():
         channel_list = [
                             {"name": "24-7 Retro", "type": "Retro"},
-                            {"name": "Action Movies", "type": "Movies, Action"},
                             {"name": "Adventure TV", "type": "Lifestyle"},
                             {"name": "Aljazeera", "type": "News"},
                             {"name": "Antenna TV", "type": "Retro"},
@@ -131,7 +130,6 @@ class Common:
                             {"name": "Black Cinema", "type": "Movies"},
                             {"name": "Bloomberg", "type": "News"},
                             {"name": "Buzzr", "type": "Retro"},
-                            {"name": "Catholic TV Network", "type": "Faith"},
                             {"name": "CBN", "type": "Faith"},
                             {"name": "Charge!", "type": "Action"},
                             {"name": "Cheddar", "type": "News"},
@@ -147,7 +145,6 @@ class Common:
                             {"name": "Crime Network", "type": "Crime"},
                             {"name": "DocuTV", "type": "Curiosity, Documentary"},
                             {"name": "Dog the Bounty Hunter", "type": "Crime, 24-7"},
-                            {"name": "Dove", "type": "Faith"},
                             {"name": "Dust", "type": "Sci-Fi"},
                             {"name": "Evine", "type": "Shopping"},
                             {"name": "Fail Army", "type": "Special Interest"},
@@ -163,10 +160,8 @@ class Common:
                             {"name": "Gravitas Movies", "type": "Movies"},
                             {"name": "Gusto", "type": "Lifestyle"},
                             {"name": "HSN", "type": "Shopping"},
-                            {"name": "Hunt Channel", "type": "Special Interest"},
                             {"name": "IMPACT Wrestling", "type": "Sports"},
                             {"name": "Jewelry TV", "type": "Shopping"},
-                            {"name": "Light TV", "type": "Faith"},
                             {"name": "Live Music Replay", "type": "Music"},
                             {"name": "Mobcrush", "type": "Special Interest"},
                             {"name": "Movie Mix", "type": "Movies"},
@@ -179,7 +174,6 @@ class Common:
                             {"name": "PBS Kids", "type": "Kids"},
                             {"name": "Pluto TV Animals", "type": "Curiosity"},
                             {"name": "Pluto TV Biography", "type": "Biography, Curiosity"},
-                            {"name": "Pluto TV Cine", "type": "Movies"},
                             {"name": "Pluto TV Comedy", "type": "Movies, Comedy"},
                             {"name": "Pluto TV Conspiracy", "type": "Curiosity"},
                             {"name": "Pluto TV Documentaries", "type": "Documentary, Curiosity"},
@@ -190,7 +184,6 @@ class Common:
                             {"name": "Pluto TV Movies", "type": "Movies"},
                             {"name": "Pluto TV Movies 2", "type": "Movies"},
                             {"name": "Pluto TV Romance", "type": "Movies, Romance"},
-                            {"name": "Pluto TV Sitcoms", "type": "Comedy"},
                             {"name": "Pluto TV Travel", "type": "Lifestyle"},
                             {"name": "Pluto TV Thrillers", "type": "Movies, Thriller"},
                             {"name": "QVC", "type": "Shopping"},
@@ -198,7 +191,6 @@ class Common:
                             {"name": "Rev'n TV", "type": "Special Interest"},
                             {"name": "RiffTrax", "type": "Comedy, 24-7"},
                             {"name": "RT News", "type": "News"},
-                            {"name": "Science TV", "type": "Curiosity"},
                             {"name": "Sky News", "type": "News"},
                             {"name": "Soar", "type": "Special Interest"},
                             {"name": "Spirit TV", "type": "Faith"},
@@ -303,9 +295,6 @@ class Common:
         if mode == "24-7 Retro":
             stream = Stream.twenty_four_seven_retro()
 
-        elif mode == "Action Movies":
-            stream = Stream.action_movies()
-
         elif mode == "Adventure TV":
             stream = Stream.adventure_tv()
 
@@ -326,9 +315,6 @@ class Common:
 
         elif mode == "Buzzr":
             stream = Stream.buzzr()
-
-        elif mode == "Catholic TV Network":
-            stream = Stream.catholic_tv()
 
         elif mode == "CBN":
             stream = Stream.cbn()
@@ -371,9 +357,6 @@ class Common:
 
         elif mode == "Dog the Bounty Hunter":
             stream = Stream.dog_the_bounty_hunter()
-
-        elif mode == "Dove":
-            stream = Stream.dove()
 
         elif mode == "Dust":
             stream = Stream.dust()
@@ -420,9 +403,6 @@ class Common:
         elif mode == "HSN":
             stream = Stream.hsn()
 
-        elif mode == "Hunt Channel":
-            stream = Stream.hunt_channel()
-
         elif mode == "IMPACT Wrestling":
             stream = Stream.impact_wrestling()
             if stream is not None:
@@ -432,9 +412,6 @@ class Common:
 
         elif mode == "Jewelry TV":
             stream = Stream.jewelry_tv()
-
-        elif mode == "Light TV":
-            stream = Stream.light_tv()
 
         elif mode == "Live Music Replay":
             stream = Stream.live_music_replay()
@@ -472,9 +449,6 @@ class Common:
         elif mode == "Pluto TV Biography":
             stream = Stream.pluto_tv_biography()
 
-        elif mode == "Pluto TV Cine":
-            stream = Stream.pluto_tv_cine()
-
         elif mode == "Pluto TV Comedy":
             stream = Stream.pluto_tv_comedy()
 
@@ -505,9 +479,6 @@ class Common:
         elif mode == "Pluto TV Romance":
             stream = Stream.pluto_tv_romance()
 
-        elif mode == "Pluto TV Sitcoms":
-            stream = Stream.pluto_tv_sitcoms()
-
         elif mode == "Pluto TV Thrillers":
             stream = Stream.pluto_tv_thrillers()
 
@@ -531,9 +502,6 @@ class Common:
 
         elif mode == "RT News":
             stream = Stream.rt()
-
-        elif mode == "Science TV":
-            stream = Stream.science_tv()
 
         elif mode == "Sky News":
             stream = Stream.sky_news()
@@ -608,15 +576,11 @@ class Stream:
             req = Common.open_url(site_url).decode("UTF-8")
             stream = Common.find_single_match(req, match_string)
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
             return None
-
-    @staticmethod
-    def action_movies():
-        return Stream.pluto("Action Movies")
 
     @staticmethod
     def adventure_tv():
@@ -664,34 +628,12 @@ class Stream:
         return Stream.stirr("buzzr-wurl-external")
 
     @staticmethod
-    def catholic_tv():
-        try:
-            site_url = "http://www.catholictv.org/watch-live"
-            player_match_string = '<iframe src="(.*?)"'
-            stream_match_string = 'tp:releaseUrl="(.*?)\?'
-
-            # Get Player
-            req = Common.open_url(site_url).decode("UTF-8")
-            url = Common.find_single_match(req, player_match_string)
-
-            # Get Stream
-            req = Common.open_url(url).decode("UTF-8")
-            stream = Common.find_single_match(req, stream_match_string) + "?formats=m3u"
-
-            if stream is not "":
-                return Common.rebase(stream)
-            else:
-                return None
-        except StandardError:
-            return None
-
-    @staticmethod
     def cbn():
         return Stream.m7lib("cbn")
 
     @staticmethod
     def charge():
-        return Stream.stirr("charge")
+        return Stream.stirr("externallinearfeed-05-21-2019-233703512-05-21-2019")
 
     @staticmethod
     def cheddar():
@@ -715,11 +657,24 @@ class Stream:
 
     @staticmethod
     def comet():
-        return Stream.stirr("comet-02-15-2018")
+        try:
+            site_url = "https://www.comettv.com/watch-live/"
+            match_string = 'file: "h(.+?)"'
+
+            # Get stream url
+            req = Common.open_url(site_url).decode("UTF-8")
+            stream = "h" + Common.find_single_match(req, match_string)
+
+            if "m3u8" in stream:
+                return stream
+            else:
+                return None
+        except StandardError:
+            return None
 
     @staticmethod
     def contv():
-        return Stream.stirr("contv-wurl-external")
+        return Stream.stirr("contv-wurl-external-12-03-2018")
 
     @staticmethod
     def courttv():
@@ -732,7 +687,7 @@ class Stream:
             stream = Common.find_single_match(req, match_string).replace("%3A", ":").replace("%2F","/")
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -749,7 +704,7 @@ class Stream:
             stream = Common.find_single_match(req, match_string).replace("%3A", ":").replace("%2F","/")
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -768,10 +723,6 @@ class Stream:
         return Stream.pluto("Dog the Bounty Hunter")
 
     @staticmethod
-    def dove():
-        return Stream.stirr("dove-wurl-external")
-
-    @staticmethod
     def dust():
         return Stream.stirr("dust-wurl-external")
 
@@ -786,7 +737,7 @@ class Stream:
             stream = Common.find_single_match(req, stream_match_string)
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -918,28 +869,6 @@ class Stream:
             return None
 
     @staticmethod
-    def hunt_channel():
-        try:
-            site_url = "http://www.huntchannel.tv/"
-            embed_match_string = '<script src="(.+?)"'
-            stream_match_string = "container.offsetHeight, '(.+?)'"
-
-            # Get embed url
-            req = Common.open_url(site_url).decode("UTF-8")
-            embed_url = Common.find_single_match(req, embed_match_string)
-
-            # Get stream url
-            req = Common.open_url(embed_url).decode("UTF-8")
-            stream = Common.find_single_match(req, stream_match_string)
-
-            if "m3u8" in stream:
-                return Common.rebase(stream)
-            else:
-                return None
-        except StandardError:
-            return None
-
-    @staticmethod
     def impact_wrestling():
         return Stream.pluto("IMPACT Wrestling")
 
@@ -959,34 +888,7 @@ class Stream:
             stream = jewelry_tv_json["playlist"][0]["sources"][0]["file"]
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
-            else:
-                return None
-        except StandardError:
-            return None
-
-    @staticmethod
-    def light_tv():
-        try:
-            site_url = "http://www.lighttv.com/"
-            embed_match_string = 'frameborder="0" scrolling="no" src="(.+?)"'
-            tokens_match_string = 'tokens=(.+?)"'
-            stream_match_string = 'src: "(.+?)"'
-
-            # Get embed url
-            req = Common.open_url(site_url).decode("UTF-8")
-            embed_url = Common.find_single_match(req, embed_match_string)
-
-            # Get tokens
-            req = Common.open_url(site_url).decode("UTF-8")
-            tokens = Common.find_single_match(req, tokens_match_string)
-
-            # Get stream url
-            req = Common.open_url(embed_url).decode("UTF-8")
-            stream = Common.find_single_match(req, stream_match_string) + tokens
-
-            if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1041,7 +943,7 @@ class Stream:
 
             # Play NASA TV stream depending on Channel Selection
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             elif "youtube" in stream:
                 channel_id = Common.get_youtube_channel_id(stream)
                 return Common.get_playable_youtube_url(channel_id)
@@ -1073,7 +975,7 @@ class Stream:
                 .replace('\\', '')
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1098,7 +1000,7 @@ class Stream:
             stream = pbs_kids_json["livestream"]
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1111,10 +1013,6 @@ class Stream:
     @staticmethod
     def pluto_tv_biography():
         return Stream.pluto("Pluto TV Biography")
-
-    @staticmethod
-    def pluto_tv_cine():
-        return Stream.pluto("Pluto TV Cine")
 
     @staticmethod
     def pluto_tv_comedy():
@@ -1155,10 +1053,6 @@ class Stream:
     @staticmethod
     def pluto_tv_romance():
         return Stream.pluto("Pluto TV Romance")
-
-    @staticmethod
-    def pluto_tv_sitcoms():
-        return Stream.pluto("Pluto TV Sitcoms")
 
     @staticmethod
     def pluto_tv_thrillers():
@@ -1211,7 +1105,7 @@ class Stream:
             # Play QVC stream depending on Channel Selection
             stream = channel_url
             if "m3u8" in channel_url:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1246,7 +1140,7 @@ class Stream:
             stream = revn_json["hls"]
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1271,7 +1165,7 @@ class Stream:
             stream_id_match_string = "file: '(.+?)'"
             stream_france_id_match_string = 'file: "(.+?)"'
             stream_arabic_id_match_string = "file': '(.+?)'"
-            stream_spanish_id_match_string = "embed/(.+?)\?"
+            stream_spanish_id_match_string = "embed/(.+?)\""
             stream_doc_id_match_string = 'url: "(.+?)"'
 
             # Channel Selection
@@ -1323,7 +1217,7 @@ class Stream:
             else:
                 stream = Common.find_single_match(req, match_string)
                 if "m3u8" in stream:
-                    return Common.rebase(stream)
+                    return stream
                 else:
                     return None
         except StandardError:
@@ -1342,15 +1236,11 @@ class Stream:
             req = Common.open_url(site_url).decode("UTF-8")
             stream = Common.find_single_match(req, match_string).replace("%3A", ":").replace("%2F","/")
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
             return None
-
-    @staticmethod
-    def science_tv():
-        return Stream.pluto("Science TV")
 
     @staticmethod
     def sky_news():
@@ -1378,7 +1268,7 @@ class Stream:
             stream = Common.find_single_match(req, stream_match_string)
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1402,7 +1292,20 @@ class Stream:
 
     @staticmethod
     def tbd():
-        return Stream.stirr("tbd-02-15-2018")
+        try:
+            site_url = "https://tbd.com"
+            stream_match_string = "'file': \"(.+?)\?"
+
+            # Get Stadium Stream
+            req = Common.open_url(site_url).decode("UTF-8")
+            stream = Common.find_single_match(req, stream_match_string)
+
+            if "m3u8" in stream:
+                return stream
+            else:
+                return None
+        except StandardError:
+            return None
 
     @staticmethod
     def tennis_channel():
@@ -1441,7 +1344,7 @@ class Stream:
             stream = tcn_json["hls"]
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1479,10 +1382,10 @@ class Stream:
             # Get stream url
             req = Common.open_url(json_url).decode("UTF-8")
             stirr_json = json.loads(req)
-            stream = stirr_json["rss"]["channel"]["item"]["media:content"]["url"]
+            stream = stirr_json["rss"]["channel"]["item"]["media:content"]["url"].strip()
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1503,7 +1406,7 @@ class Stream:
                 if i["name"] == channel:
                     stream = i["stitched"]["urls"][0]["url"]
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             else:
                 return None
         except StandardError:
@@ -1518,7 +1421,7 @@ class Stream:
             stream = channel_json["results"][0]["stream"]
 
             if "m3u8" in stream:
-                return Common.rebase(stream)
+                return stream
             elif "youtube" in stream:
                 channel_id = Common.get_youtube_channel_id(stream)
                 return Common.get_playable_youtube_url(channel_id)
