@@ -246,8 +246,8 @@ class Common:
             item = title
         else:
             item = mode
-        liz = xbmcgui.ListItem(str(item), iconImage="DefaultFolder.png", thumbnailImage=icon)
-        liz.setProperty('fanart_image', fanart)
+        liz = xbmcgui.ListItem(str(item), iconImage=icon, thumbnailImage=icon)
+        liz.setArt({'thumb': icon, 'poster': icon, 'banner': icon, 'fanart': fanart})
         liz.setProperty("IsPlayable", "true")
         liz.setInfo('video', {'Title': item})
         ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=False)
@@ -260,8 +260,8 @@ class Common:
             item = title
         else:
             item = mode
-        liz = xbmcgui.ListItem(str(item), iconImage="DefaultFolder.png", thumbnailImage=icon)
-        liz.setProperty('fanart_image', fanart)
+        liz = xbmcgui.ListItem(str(item), iconImage=icon, thumbnailImage=icon)
+        liz.setArt({'thumb': icon, 'poster': icon, 'banner': icon, 'fanart': fanart})
         liz.setProperty("IsPlayable", "true")
         liz.setInfo('video', {'Title': item})
         ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=True)
@@ -1563,7 +1563,7 @@ class Stream:
                 icon = "none"
             cat_list.append({"id": json_results['list'][category],
                              "icon": icon,
-                             "title": json_results['hash'][json_results['list'][category]]['title'].decode('UTF-8')})
+                             "title": json_results['hash'][json_results['list'][category]]['title'].encode('UTF-8', 'ignore')})
         return cat_list
 
     @staticmethod
