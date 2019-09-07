@@ -1,3 +1,6 @@
+[B]Version 0.7.7[/B]
+- version bump
+
 [B]Version 0.7.6[/B]
 - Removed broken live TV channels
 - Fixed several live TV channels
