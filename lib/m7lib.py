@@ -270,14 +270,6 @@ class Common:
         return 'plugin://plugin.video.youtube/play/?video_id=%s' % channel_id
 
     @staticmethod
-    # Add rebase=on to stream URL
-    def rebase(stream):
-        rebase = 'rebase=on'
-        if '?' in stream:
-            return stream + '&' + rebase
-        return stream + '?' + rebase
-
-    @staticmethod
     # Play stream
     # Optional: set xbmc_player to True to use xbmc.Player() instead of xbmcplugin.setResolvedUrl()
     def play(stream, channel=None, xbmc_player=False):
