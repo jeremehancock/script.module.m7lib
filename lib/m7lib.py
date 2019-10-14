@@ -134,6 +134,7 @@ class Common:
                             {"name": "CBN", "type": "Faith"},
                             {"name": "Charge!", "type": "Action"},
                             {"name": "Cheddar", "type": "News"},
+                            {"name": "Classic Arts Showcase", "type": "Music"},
                             {"name": "Classic Movies Channel", "type": "Movies, Retro"},
                             {"name": "Classic Toons TV", "type": "Retro, Kids"},
                             {"name": "Classic TV", "type": "Retro"},
@@ -344,6 +345,9 @@ class Common:
 
         elif mode == "Cheddar":
             stream = Stream.cheddar()
+
+        elif mode == "Classic Arts Showcase":
+            stream = Stream.classic_arts_showcase()
 
         elif mode == "Classic Movies Channel":
             stream = Stream.classic_movies_channel()
@@ -685,7 +689,7 @@ class Stream:
             channel_match_string = '<iframe width="100%" src="(.+?)\&'
             video_match_string = '\'VIDEO_ID\': "(.+?)"'
 
-            # Get A Jazerra YouTube Channel
+            # Get AlJazerra YouTube Channel
             req = Common.open_url(site_url).decode("UTF-8")
             channel_url = Common.find_single_match(req, channel_match_string)
 
@@ -734,6 +738,20 @@ class Stream:
     @staticmethod
     def cheddar():
         return Stream.stirr("cheddar-wurl-external")
+
+    @staticmethod
+    def classic_arts_showcase():
+        try:
+            site_url = "http://www.classicartsshowcase.org/watch-classic-arts-showcase/"
+            match_string = "hls.loadSource\('(.+?)'"
+            req = Common.open_url(site_url).decode("UTF-8")
+            stream = Common.find_single_match(req, match_string)
+            if "m3u8" in stream:
+                return stream
+            else:
+                return None
+        except StandardError:
+            return None
 
     @staticmethod
     def classic_movies_channel():
