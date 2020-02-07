@@ -145,10 +145,8 @@ class Common:
                             {"name": "Comet", "type": "Sci-Fi"},
                             {"name": "CONtv", "type": "Special Interest"},
                             {"name": "Court TV", "type": "Crime"},
-                            {"name": "Cozi TV", "type": "Retro"},
                             {"name": "Crime Network", "type": "Crime"},
                             {"name": "Docurama", "type": "Curiosity, Documentary"},
-                            {"name": "DocuTV", "type": "Curiosity, Documentary"},
                             {"name": "Dog the Bounty Hunter", "type": "Crime, 24-7"},
                             {"name": "Dust", "type": "Sci-Fi"},
                             {"name": "Evine", "type": "Shopping"},
@@ -204,20 +202,16 @@ class Common:
                             {"name": "Pluto TV Thrillers", "type": "Movies, Thriller"},
                             {"name": "QVC", "type": "Shopping"},
                             {"name": "Retro TV", "type": "Retro"},
-                            {"name": "Rev'n TV", "type": "Special Interest"},
                             {"name": "RiffTrax", "type": "Comedy, 24-7"},
                             {"name": "RT News", "type": "News"},
                             {"name": "Shout TV", "type": "Retro"},
                             {"name": "Sky News", "type": "News"},
-                            {"name": "Spirit TV", "type": "Faith"},
                             {"name": "Stadium", "type": "Sports"},
                             {"name": "Stand-Up TV", "type": "Comedy"},
                             {"name": "Stirr Action", "type": "Movies, Action"},
                             {"name": "Stirr Biographies", "type": "Biography"},
                             {"name": "Stirr Black Cinema", "type": "Movies"},
-                            {"name": "Stirr Classics", "type": "Movies, Retro"},
                             {"name": "Stirr Comedy", "type": "Movies, Comedy"},
-                            {"name": "Stirr Drama", "type": "Movies"},
                             {"name": "Stirr Lifestyle", "type": "Lifestyle"},
                             {"name": "Stirr Movies", "type": "Movies"},
                             {"name": "Stirr Music", "type": "Music"},
@@ -227,14 +221,12 @@ class Common:
                             {"name": "TBD", "type": "Special Interest"},
                             {"name": "Tennis Channel", "type": "Sports"},
                             {"name": "The Asylum", "type": "Movies, Sci-Fi"},
-                            {"name": "The Country Network", "type": "Music"},
                             {"name": "The Film Detective", "type": "Movies, Retro"},
                             {"name": "The New Detectives", "type": "Crime, 24-7"},
                             {"name": "The Pet Collective", "type": "Special Interest"},
                             {"name": "This TV", "type": "Retro"},
                             {"name": "Unsolved Mysteries", "type": "Crime, 24-7"},
                             {"name": "Voyager Documentaries", "type": "Curiosity, Documentary"},
-                            {"name": "Wahlburgers", "type": "24-7"},
                             {"name": "World Poker Tour", "type": "Special Interest"}
                         ]
 
@@ -376,17 +368,11 @@ class Common:
         elif mode == "Court TV":
             stream = Stream.courttv()
 
-        elif mode == "Cozi TV":
-            stream = Stream.cozi_tv()
-
         elif mode == "Crime Network":
             stream = Stream.crime_network()
 
         elif mode == "Docurama":
             stream = Stream.docurama()
-
-        elif mode == "DocuTV":
-            stream = Stream.docutv()
 
         elif mode == "Dog the Bounty Hunter":
             stream = Stream.dog_the_bounty_hunter()
@@ -560,9 +546,6 @@ class Common:
         elif mode == "Retro TV":
             stream = Stream.retro_tv()
 
-        elif mode == "Rev'n TV":
-            stream = Stream.revn_tv()
-
         elif mode == "RiffTrax":
             stream = Stream.rifftrax()
 
@@ -574,9 +557,6 @@ class Common:
 
         elif mode == "Sky News":
             stream = Stream.sky_news()
-
-        elif mode == "Spirit TV":
-            stream = Stream.spirittv()
 
         elif mode == "Stadium":
             stream = Stream.stadium()
@@ -593,14 +573,8 @@ class Common:
         elif mode == "Stirr Black Cinema":
             stream = Stream.stirr_black_cinema()
 
-        elif mode == "Stirr Classics":
-            stream = Stream.stirr_classics()
-
         elif mode == "Stirr Comedy":
             stream = Stream.stirr_comedy()
-
-        elif mode == "Stirr Drama":
-            stream = Stream.stirr_drama()
 
         elif mode == "Stirr Lifestyle":
             stream = Stream.stirr_life()
@@ -632,9 +606,6 @@ class Common:
         elif mode == "The Asylum":
             stream = Stream.the_asylum()
 
-        elif mode == "The Country Network":
-            stream = Stream.the_country_network()
-
         elif mode == "The Film Detective":
             stream = Stream.the_film_detective()
 
@@ -649,9 +620,6 @@ class Common:
 
         elif mode == "Voyager Documentaries":
             stream = Stream.voyager_documentaries()
-
-        elif mode == "Wahlburgers":
-            stream = Stream.wahlburgers()
 
         elif mode == "World Poker Tour":
             stream = Stream.world_poker_tour()
@@ -725,7 +693,7 @@ class Stream:
 
     @staticmethod
     def buzzr():
-        return Stream.stirr("buzzr-wurl-external")
+        return Stream.stirr("buzzr-wurl-external-08-27-2018")
 
     @staticmethod
     def cbn():
@@ -733,7 +701,7 @@ class Stream:
 
     @staticmethod
     def charge():
-        return Stream.stirr("externallinearfeed-05-21-2019-233703512-05-21-2019")
+        return Stream.stirr("externallinearfeed-01-15-2020-201540715-01-15-2020")
 
     @staticmethod
     def cheddar():
@@ -803,33 +771,12 @@ class Stream:
             return None
 
     @staticmethod
-    def cozi_tv():
-        try:
-            site_url = "http://wzts.tv/watch/"
-            match_string = '"sourceURL":"(.+?)"'
-
-            # Get stream url
-            req = Common.open_url(site_url).decode("UTF-8")
-            stream = Common.find_single_match(req, match_string).replace("%3A", ":").replace("%2F","/")
-
-            if "m3u8" in stream:
-                return stream
-            else:
-                return None
-        except StandardError:
-            return None
-
-    @staticmethod
     def crime_network():
         return Stream.pluto("Crime Network")
 
     @staticmethod
     def docurama():
         return Stream.stirr("externallinearfeed-05-20-2019-05-20-2019")
-
-    @staticmethod
-    def docutv():
-        return Stream.pluto("DocuTV")
 
     @staticmethod
     def dog_the_bounty_hunter():
@@ -1273,37 +1220,6 @@ class Stream:
         return Stream.m7lib("retro_tv")
 
     @staticmethod
-    def revn_tv():
-        try:
-            site_url = "http://www.revntv.com/watch/watch-online/"
-            embed_match_string = '<iframe src="(.+?)"'
-            tokens_match_string = '<script id="(.+?)"'
-            json_url_main = 'http://json.dacast.com/b/'
-
-            # Get embed url
-            req = Common.open_url(site_url).decode("UTF-8")
-            embed_url = "http:" + Common.find_single_match(req, embed_match_string)
-
-            # Get tokens
-            req = Common.open_url(embed_url).decode("UTF-8")
-            tokens = Common.find_single_match(req, tokens_match_string).replace("_", "/")
-
-            # Build json url
-            json_url = json_url_main + tokens
-
-            # Get stream url
-            req = Common.open_url(json_url).decode("UTF-8")
-            revn_json = json.loads(req)
-            stream = revn_json["hls"]
-
-            if "m3u8" in stream:
-                return stream
-            else:
-                return None
-        except StandardError:
-            return None
-
-    @staticmethod
     def rifftrax():
         return Stream.pluto("RiffTrax")
 
@@ -1320,7 +1236,7 @@ class Stream:
             rtesp_url = "https://actualidad.rt.com/en_vivo"
             rtdoc_url = "https://rtd.rt.com/on-air/"
             stream_id_match_string = "embed/(.+?)\""
-            stream_uk_match_string = '"contentURL": "(.+?)"'
+            stream_uk_match_string = "embed/(.+?)\""
             stream_france_id_match_string = 'file: "(.+?)"'
             stream_doc_id_match_string = 'url: "(.+?)"'
 
@@ -1362,7 +1278,7 @@ class Stream:
             req = Common.open_url(channel_url).decode("UTF-8")
 
             # Use YouTube for RT Spanish Streams
-            if source == 0 or source == 1 or source == 4 or source == 5:
+            if source == 0 or source == 1 or source == 2 or source == 4 or source == 5:
                 channel_id = Common.find_single_match(req, match_string)
                 if channel_id is not "":
                     return Common.get_playable_youtube_url(channel_id)
@@ -1432,16 +1348,8 @@ class Stream:
         return Stream.stirr("stirr-black-cinema-09-30-2019")
 
     @staticmethod
-    def stirr_classics():
-        return Stream.stirr("stirr-classic-movies-09-30-2019")
-
-    @staticmethod
     def stirr_comedy():
         return Stream.stirr("stirr-comedy")
-
-    @staticmethod
-    def stirr_drama():
-        return Stream.stirr("stirr-drama-movies-09-27-2019")
 
     @staticmethod
     def stirr_life():
@@ -1484,37 +1392,6 @@ class Stream:
         return Stream.pluto("The Asylum")
 
     @staticmethod
-    def the_country_network():
-        try:
-            site_url = "http://tcncountry.net/watch-live.htm"
-            embed_match_string = '<iframe src="(.+?)"'
-            tokens_match_string = '<script id="(.+?)"'
-            json_url_main = 'http://json.dacast.com/b/'
-
-            # Get embed url
-            req = Common.open_url(site_url).decode("UTF-8")
-            embed_url = Common.find_single_match(req, embed_match_string)
-
-            # Get tokens
-            req = Common.open_url(embed_url).decode("UTF-8")
-            tokens = Common.find_single_match(req, tokens_match_string).replace("_", "/")
-
-            # Build json url
-            json_url = json_url_main + tokens
-
-            # Get stream url
-            req = Common.open_url(json_url).decode("UTF-8")
-            tcn_json = json.loads(req)
-            stream = tcn_json["hls"]
-
-            if "m3u8" in stream:
-                return stream
-            else:
-                return None
-        except StandardError:
-            return None
-
-    @staticmethod
     def the_film_detective():
         return Stream.stirr("externallinearfeed-07-18-2019-07-18-2019")
 
@@ -1533,10 +1410,6 @@ class Stream:
     @staticmethod
     def voyager_documentaries():
         return Stream.pluto("Voyager Documentaries")
-
-    @staticmethod
-    def wahlburgers():
-        return Stream.pluto("Wahlburgers")
 
     @staticmethod
     def world_poker_tour():
