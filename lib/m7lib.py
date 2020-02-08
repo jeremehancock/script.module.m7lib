@@ -1423,7 +1423,7 @@ class Stream:
             # Get stream url
             req = Common.open_url(json_url).decode("UTF-8")
             stirr_json = json.loads(req)
-            stream = stirr_json["rss"]["channel"]["item"]["media:content"]["url"].strip()
+            stream = stirr_json["rss"]["channel"]["item"]["media:content"]["url"].strip().replace('\\', '')
 
             if "m3u8" in stream:
                 return stream
