@@ -101,36 +101,11 @@ class Common:
         return link
 
     @staticmethod
-    # Section, Genre, or Channel logos
-    def get_logo(channel, logo_type=None):
-        if logo_type == "section":
-            return xbmc.translatePath(
-                os.path.join('special://home/addons/script.module.m7lib', 'lib', 'resources', 'images', 'sections',
-                             channel + ".png"))
-        elif logo_type == "genre":
-            return xbmc.translatePath(
-                os.path.join('special://home/addons/script.module.m7lib', 'lib', 'resources', 'images', 'genres',
-                             channel + ".png"))
-
-    @staticmethod
     # Available channels
     def get_channels():
         req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "channels")
         channel_list = json.loads(req)
         return channel_list
-
-    @staticmethod
-    # Available sections
-    def get_sections():
-        section_list = ["All Channels", "Genres"]
-        return section_list
-
-    @staticmethod
-    # Available genres
-    def get_genres():
-        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "genres")
-        genre_list = json.loads(req)
-        return genre_list
 
     @staticmethod
     def add_channel(mode, icon, fanart, title=None, live=True):
