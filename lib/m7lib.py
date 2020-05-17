@@ -102,8 +102,8 @@ class Common:
 
     @staticmethod
     # Available channels
-    def get_channels():
-        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "channels")
+    def get_channels(token):
+        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "channels?token=" + token)
         channel_list = json.loads(req)
         return channel_list
 
@@ -161,9 +161,9 @@ class Common:
 
     @staticmethod
     # Get and Play stream
-    def get_stream_and_play(mode):
+    def get_stream_and_play(mode, token):
         stream = None
-        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "channels/?slug=" + mode)
+        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "channels/?slug=" + mode + "&token=" + token)
         stream = json.loads(req)['stream']
 
         if stream is not None:
