@@ -47,8 +47,7 @@ convert_special_characters = HTMLParser()
 dlg = xbmcgui.Dialog()
 
 stream_failed = "Unable to get stream. Please try again later."
-stream_plug = "aHR0cHM6Ly9tN2xpYi5kZXYvYXBpL3YxL2pzb24v"
-stream_plug = "aHR0cHM6Ly9tN2xpYi5kZXYvYXBpL3YxL2pzb24v"
+stream_plug = "aHR0cHM6Ly9tN2xpYi5kZXYvYXBpL3YxL2NoYW5uZWxzLw=="
 explore_org_base = "aHR0cHM6Ly9vbWVnYS5leHBsb3JlLm9yZy9hcGkvZ2V0X2NhbV9ncm91cF9pbmZvLmpzb24/aWQ9Nzk="
 tubi_tv_base = "aHR0cHM6Ly90dWJpdHYuY29tL296"
 
@@ -104,7 +103,7 @@ class Common:
     @staticmethod
     # Available channels
     def get_channels():
-        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "channels.json")
+        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "index.json")
         channel_list = json.loads(req)
         return channel_list
 
