@@ -167,11 +167,12 @@ class Common:
         stream = None
         req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "?slug=" + mode)
         stream = json.loads(req)['stream']
+        name = json.loads(req)['name']
 
-        if stream is not None:
+        if "m3u8" in stream:
             Common.play(stream)
         else:
-            Common.dlg_failed(mode)
+            Common.dlg_failed(name)
 
 
 class Stream:
