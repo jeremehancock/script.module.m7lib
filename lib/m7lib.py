@@ -95,7 +95,7 @@ class Common:
         if user_agent is not False:
             req.add_header('User-Agent',
                            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11'
-                           '(KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11')
+                           '(KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11' 'KODI')
         # Added '# nosec' to suppress bandit warnings since the code is not accepting non-http schemes
         response = urlopen(req)  # nosec
         link = response.read()
@@ -165,7 +165,7 @@ class Common:
     # Get and Play stream
     def get_stream_and_play(mode):
         stream = None
-        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + mode + ".json")
+        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "?slug=" + mode + "&token=kodi")
         stream = json.loads(req)['stream']
 
         if stream is not None:
