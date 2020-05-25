@@ -165,7 +165,7 @@ class Common:
     # Get and Play stream
     def get_stream_and_play(mode):
         stream = None
-        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "?slug=" + mode + "&token=kodi")
+        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "?slug=" + mode)
         stream = json.loads(req)['stream']
 
         if stream is not None:
