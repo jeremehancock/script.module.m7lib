@@ -110,6 +110,12 @@ class Common:
         return channel_list
 
     @staticmethod
+    def search_channels(query):
+        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "?search=" + query)
+        channel_list = json.loads(req)
+        return channel_list
+
+    @staticmethod
     def add_channel(mode, icon, fanart, title=None, live=True):
         if live is True:
             u = sys.argv[0] + "?mode=" + str(mode) + "&pvr=.pvr"
@@ -252,9 +258,9 @@ class Stream:
         return episode_list
 
     @staticmethod
-    def get_tubi_tv_search(text):
+    def get_tubi_tv_search(query):
         search_list = []
-        url = base64.b64decode(tubi_tv_base) + '/search/' + text
+        url = base64.b64decode(tubi_tv_base) + '/search/' + query
         req = Common.open_url(url).decode('UTF-8')
         json_results = json.loads(req)
 
