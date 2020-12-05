@@ -116,6 +116,22 @@ class Common:
         return channel_list
 
     @staticmethod
+    def add_streams(streams):
+        coll = []
+        for stream in streams:
+            icon = stream['icon']
+            u = sys.argv[0] + '?mode=' + str(stream['id']) + '&pvr=.pvr'
+            item = stream['title'] if stream['title'] is not None else stream['id']
+            liz = xbmcgui.ListItem(str(item), offscreen=True, iconImage=icon, thumbnailImage=icon)
+            liz.setProperty('skipPlayCount', 'true')
+            liz.setProperty('IsPlayable', 'true')
+            liz.setContentLookup(False)
+            liz.setIsFolder(False)
+            liz.setInfo('video', {'Title': item})
+            coll.append((u, liz, False))
+        return xbmcplugin.addDirectoryItems(int(sys.argv[1]), coll)
+
+    @staticmethod
     def add_channel(mode, icon, fanart, title=None, live=True):
         if live is True:
             u = sys.argv[0] + "?mode=" + str(mode) + "&pvr=.pvr"
