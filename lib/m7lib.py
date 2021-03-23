@@ -141,7 +141,7 @@ class Common:
             item = title
         else:
             item = mode
-        liz = xbmcgui.ListItem(str(item), iconImage=icon, thumbnailImage=icon)
+        liz = xbmcgui.ListItem(str(item))
         liz.setArt({'thumb': icon, 'poster': icon, 'banner': icon, 'fanart': fanart})
         liz.setProperty("IsPlayable", "true")
         liz.setInfo('video', {'Title': item})
@@ -155,7 +155,7 @@ class Common:
             item = title
         else:
             item = mode
-        liz = xbmcgui.ListItem(str(item), iconImage=icon, thumbnailImage=icon)
+        liz = xbmcgui.ListItem(str(item))
         liz.setArt({'thumb': icon, 'poster': icon, 'banner': icon, 'fanart': fanart})
         liz.setProperty("IsPlayable", "true")
         liz.setInfo('video', {'Title': item})
@@ -231,7 +231,7 @@ class Stream:
         for category in range(0, len(json_results['list'])):
             try:
                 icon = json_results['hash'][json_results['list'][category]]['thumbnail']
-            except StandardError:
+            except SyntaxError:
                 icon = "none"
             cat_list.append({"id": json_results['list'][category],
                              "icon": icon,
@@ -251,7 +251,7 @@ class Stream:
                                      "icon": json_results['contents'][movie]['posterarts'][0],
                                      "title": json_results['contents'][movie]['title'].decode('UTF-8'),
                                      "type": json_results['contents'][movie]['type']})
-            except StandardError:
+            except SyntaxError:
                 pass
         return content_list
 
@@ -269,7 +269,7 @@ class Stream:
                                          "icon":
                                              json_results['children'][season]['children'][episode]['thumbnails'][0],
                                          "title": json_results['children'][season]['children'][episode]['title'].decode('UTF-8')})
-            except StandardError:
+            except SyntaxError:
                 pass
         return episode_list
 
@@ -286,7 +286,7 @@ class Stream:
                                      "icon": result['posterarts'][0],
                                      "title": result['title'].decode('UTF-8'),
                                      "type": result['type']})
-            except StandardError:
+            except SyntaxError:
                 pass
         return search_list
 
