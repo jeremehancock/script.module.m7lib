@@ -120,9 +120,11 @@ class Common:
         coll = []
         for stream in streams:
             icon = stream['icon']
+            fanart = stream['fanart']
             u = sys.argv[0] + '?mode=' + str(stream['id']) + '&pvr=.pvr'
             item = stream['title'] if stream['title'] is not None else stream['id']
-            liz = xbmcgui.ListItem(str(item), offscreen=True, iconImage=icon, thumbnailImage=icon)
+            liz = xbmcgui.ListItem(str(item), offscreen=True)
+            liz.setArt({'thumb': icon, 'poster': icon, 'banner': icon, 'fanart': fanart})
             liz.setProperty('skipPlayCount', 'true')
             liz.setProperty('IsPlayable', 'true')
             liz.setContentLookup(False)
@@ -217,7 +219,7 @@ class Stream:
                 else:
                     fanart = stream["thumbnail_large_url"]
                 stream_list.append({"id": stream["video_id"], "icon": icon, "fanart": fanart,
-                                    "title": stream["title"].encode(encoding='UTF-8', errors='strict')})
+                                    "title": stream["title"].encode(encoding='UTF-8', errors='strict').decode('UTF-8')})
         return stream_list
     # End Explore.org #
 
@@ -235,7 +237,7 @@ class Stream:
                 icon = "none"
             cat_list.append({"id": json_results['list'][category],
                              "icon": icon,
-                             "title": json_results['hash'][json_results['list'][category]]['title'].encode('UTF-8', 'ignore')})
+                             "title": json_results['hash'][json_results['list'][category]]['title'].encode('UTF-8', 'ignore').decode('UTF-8')})
         return cat_list
 
     @staticmethod
