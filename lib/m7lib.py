@@ -111,7 +111,7 @@ class Common:
 
     @staticmethod
     def search_channels(query):
-        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "?search=" + query)
+        req = Common.open_url(base64.b64decode(stream_plug).decode("UTF-8") + "?search=" + query.replace(" ","%20"))
         channel_list = json.loads(req)
         return channel_list
 
@@ -227,7 +227,7 @@ class Stream:
     @staticmethod
     def get_tubi_tv_categories():
         cat_list = []
-        url = base64.b64decode(tubi_tv_base) + '/containers/'
+        url = base64.b64decode(tubi_tv_base).decode('UTF-8') + '/containers/'
         req = Common.open_url(url).decode('UTF-8')
         json_results = json.loads(req)
         for category in range(0, len(json_results['list'])):
@@ -243,7 +243,7 @@ class Stream:
     @staticmethod
     def get_tubi_tv_content(category):
         content_list = []
-        url = base64.b64decode(tubi_tv_base) + '/containers/' + category + '/content?cursor=1&limit=200'
+        url = base64.b64decode(tubi_tv_base).decode('UTF-8') + '/containers/' + category + '/content?cursor=1&limit=200'
         req = Common.open_url(url).decode('UTF-8')
         json_results = json.loads(req)
 
@@ -251,7 +251,7 @@ class Stream:
             try:
                 content_list.append({"id": json_results['contents'][movie]['id'],
                                      "icon": json_results['contents'][movie]['posterarts'][0],
-                                     "title": json_results['contents'][movie]['title'].decode('UTF-8'),
+                                     "title": json_results['contents'][movie]['title'],
                                      "type": json_results['contents'][movie]['type']})
             except SyntaxError:
                 pass
@@ -260,7 +260,7 @@ class Stream:
     @staticmethod
     def get_tubi_tv_episodes(show):
         episode_list = []
-        url = base64.b64decode(tubi_tv_base) + '/videos/0' + show + '/content'
+        url = base64.b64decode(tubi_tv_base).decode('UTF-8') + '/videos/0' + show + '/content'
         req = Common.open_url(url).decode('UTF-8')
         json_results = json.loads(req)
 
@@ -270,7 +270,7 @@ class Stream:
                     episode_list.append({"id": json_results['children'][season]['children'][episode]['id'],
                                          "icon":
                                              json_results['children'][season]['children'][episode]['thumbnails'][0],
-                                         "title": json_results['children'][season]['children'][episode]['title'].decode('UTF-8')})
+                                         "title": json_results['children'][season]['children'][episode]['title']})
             except SyntaxError:
                 pass
         return episode_list
@@ -278,15 +278,15 @@ class Stream:
     @staticmethod
     def get_tubi_tv_search(query):
         search_list = []
-        url = base64.b64decode(tubi_tv_base) + '/search/' + query
-        req = Common.open_url(url).decode('UTF-8')
+        url = base64.b64decode(tubi_tv_base).decode('UTF-8') + '/search/' + query
+        req = Common.open_url(url.replace(" ","%20"))
         json_results = json.loads(req)
 
         for result in json_results:
             try:
                 search_list.append({"id": result['id'],
                                      "icon": result['posterarts'][0],
-                                     "title": result['title'].decode('UTF-8'),
+                                     "title": result['title'],
                                      "type": result['type']})
             except SyntaxError:
                 pass
@@ -294,6 +294,6 @@ class Stream:
 
     @staticmethod
     def get_tubi_tv_stream(stream_id):
-        req = Common.open_url(base64.b64decode(tubi_tv_base) + '/videos/' + stream_id + '/content')
+        req = Common.open_url(base64.b64decode(tubi_tv_base).decode('UTF-8') + '/videos/' + stream_id + '/content')
         return json.loads(req)['url']
     # End Tubi TV #
